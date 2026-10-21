@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Kannada - Legal Information & Privacy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Kannada:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #135D38;
+            --primary-dark: #0D4126;
+            --primary-light: #1E7B4C;
+            --accent-green: #22C55E;
+            --green-tint: #EAF5EE;
+            --gold: #D4AF37;
+            --gold-light: #FEF3C7;
+            --bg-cream: #F9F9F4;
+            --card-bg: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #EAF5EE 0%, #D1E7DD 50%, #C4DFD2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 640px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 48px 40px;
+            border-radius: 28px;
+            box-shadow: 0 20px 50px rgba(19, 93, 56, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 1px solid rgba(19, 93, 56, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent-green) 50%, var(--gold) 100%);
+        }
+
+        .logo-wrap {
+            margin: 0 auto 24px;
+            width: 88px;
+            height: 88px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(19, 93, 56, 0.25);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .logo-kannada {
+            font-family: 'Noto Sans Kannada', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1;
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .kannada-sub {
+            font-family: 'Noto Sans Kannada', sans-serif;
+            color: var(--primary);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 28px;
+            display: inline-block;
+            background: var(--green-tint);
+            color: var(--primary);
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+
+        .app-info {
+            background: #F8FAF9;
+            padding: 22px 24px;
+            border-radius: 16px;
+            margin-bottom: 28px;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        .app-info h3 {
+            color: var(--primary-dark);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .app-info p {
+            color: var(--text-secondary);
+            font-size: 0.93rem;
+            line-height: 1.65;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 16px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(19, 93, 56, 0.2);
+            text-align: left;
+        }
+
+        .link-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(19, 93, 56, 0.32);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+
+        .link-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .link-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .link-desc {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 3px;
+        }
+
+        .link-arrow {
+            font-size: 1.4rem;
+            opacity: 0.85;
+            transition: transform 0.2s ease;
+        }
+
+        .link-card:hover .link-arrow {
+            transform: translateX(4px);
+            opacity: 1;
+        }
+
+        .footer {
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.86rem;
+            line-height: 1.7;
+        }
+
+        .footer strong {
+            color: var(--text-primary);
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 34px 22px;
+            }
+            h1 {
+                font-size: 1.75rem;
+            }
+            .link-card {
+                padding: 16px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-wrap">
+            <span class="logo-kannada">ಕ</span>
+        </div>
+        <h1>Learn Kannada</h1>
+        <div class="kannada-sub">ಕನ್ನಡ ಕಲಿ - ಸುಲಭ ಮತ್ತು ವೇಗವಾಗಿ</div>
+        <div class="tagline">Learn • Speak • Grow</div>
+
+        <div class="app-info">
+            <h3>📖 About the Application</h3>
+            <p>
+                <strong>Learn Kannada</strong> is your interactive companion to master spoken Kannada, vocabulary, everyday conversation phrases, and sentence structures. Featuring native audio pronunciations, themed quizzes, offline bookmarks, and instant search, the app is crafted for beginners, travelers, students, and everyday communication in Karnataka.
+            </p>
+        </div>
+
+        <div class="links">
+            <a href="privacy_policy.html" class="link-card">
+                <div class="link-content">
+                    <span class="link-title">🔒 Privacy Policy</span>
+                    <span class="link-desc">Learn how your data and privacy are safeguarded</span>
+                </div>
+                <span class="link-arrow">→</span>
+            </a>
+
+            <a href="terms_and_conditions.html" class="link-card">
+                <div class="link-content">
+                    <span class="link-title">📋 Terms and Conditions</span>
+                    <span class="link-desc">Read our terms of service and educational usage rules</span>
+                </div>
+                <span class="link-arrow">→</span>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p><strong>Developer:</strong> UK Solutions</p>
+            <p><strong>Email:</strong> <a href="mailto:apps.uksolutions@gmail.com">apps.uksolutions@gmail.com</a></p>
+            <p><strong>Website:</strong> <a href="https://ukrsolutions.in" target="_blank" rel="noopener noreferrer">https://ukrsolutions.in</a></p>
+            <p><strong>Location:</strong> Bangalore, Karnataka, India</p>
+            <p style="margin-top: 14px; font-size: 0.8rem; color: #9CA3AF;">© 2026 UK Solutions. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
