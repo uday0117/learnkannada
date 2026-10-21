@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'core/constants/app_config.dart';
+import 'core/services/ad_service.dart';
+import 'core/services/favorites_service.dart';
+import 'core/services/monetization_service.dart';
+import 'core/services/theme_service.dart';
+import 'core/services/tts_service.dart';
+import 'core/theme/app_theme.dart';
+import 'data/content_repository.dart';
+import 'screens/splash_screen.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Set system UI overlay styling to match brand aesthetic
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
+
+  // Initialize Firebase (safely ignores if unsupported platform or credentials missing)
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (_) {}
+
+  // Initialize repository (loads bundled 650+ words/sentences), favorites, monetization, theme, ads, and TTS
+  await ContentRepository().init();
+  await FavoritesService().init();
+  await MonetizationService().init();
+  await ThemeService().init();
+  await TtsService().init();
+  await AdService().init();
+
+  runApp(const LearnKannadaApp());
+}
+
+class LearnKannadaApp extends StatelessWidget {
+  const LearnKannadaApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: ThemeService().themeMode,
+      builder: (context, mode, _) {
+        return MaterialApp(
+          title: AppConfig.appTitle,
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: mode,
+          home: const SplashScreen(),
+        );
+      },
+    );
+  }
+}
