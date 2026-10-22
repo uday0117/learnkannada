@@ -18,8 +18,8 @@ class AdService {
   bool _isInterstitialLoading = false;
 
   /// In debug mode, Google AdMob requires test ad units to avoid policy violations.
-  /// Set this to true if you explicitly want to test live ad units in debug mode.
-  static bool forceLiveAds = false;
+  /// Set to true to load live ad units even during debug builds.
+  static bool forceLiveAds = true;
 
   // Production Ad Units provided by the user
   static const String prodHomeBannerId =
