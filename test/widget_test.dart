@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:learnkannada/core/services/ad_service.dart';
 import 'package:learnkannada/core/services/favorites_service.dart';
 import 'package:learnkannada/core/services/theme_service.dart';
+import 'package:learnkannada/core/services/tts_service.dart';
 import 'package:learnkannada/data/content_repository.dart';
 import 'package:learnkannada/models/learning_item.dart';
 import 'package:learnkannada/main.dart';
@@ -102,6 +103,20 @@ void main() {
     });
   });
 
+  group('TtsService Tests', () {
+    test('Supports mute, unmute, and currently playing tracking', () async {
+      final tts = TtsService();
+      expect(tts.isMuted.value, false);
+
+      await tts.mute();
+      expect(tts.isMuted.value, true);
+      expect(tts.currentlyPlayingId.value, isNull);
+
+      tts.unmute();
+      expect(tts.isMuted.value, false);
+    });
+  });
+
   group('App Widget Smoke Test', () {
     testWidgets('App renders splash screen and transitions to home',
         (WidgetTester tester) async {
@@ -114,6 +129,22 @@ void main() {
       expect(find.text('Hello Learner!'), findsOneWidget);
       expect(find.text('Words'), findsWidgets);
       expect(find.text('Sentences'), findsWidgets);
+    });
+
+    testWidgets('Home screen renders without overflow on narrow 360dp screen',
+        (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(360, 640);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(const LearnKannadaApp());
+      await tester.pumpAndSettle(const Duration(milliseconds: 2500));
+      expect(find.text('Words'), findsWidgets);
+      expect(find.text('Sentences'), findsWidgets);
+      expect(tester.takeException(), isNull);
     });
   });
 }

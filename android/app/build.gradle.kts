@@ -50,10 +50,26 @@ android {
                 keyPassword = keystoreProperties.getProperty("keyPassword")
                 val storeFileProp = keystoreProperties.getProperty("storeFile")
                 if (storeFileProp != null) {
-                    storeFile = rootProject.file(storeFileProp)
+                    val candidate1 = rootProject.file(storeFileProp)
+                    val candidate2 = project.file(storeFileProp)
+                    val candidate3 = rootProject.file("app/$storeFileProp")
+                    val candidate4 = rootProject.file(storeFileProp.removePrefix("android/"))
+                    storeFile = when {
+                        candidate1.exists() -> candidate1
+                        candidate2.exists() -> candidate2
+                        candidate3.exists() -> candidate3
+                        candidate4.exists() -> candidate4
+                        else -> candidate1
+                    }
                 }
                 storePassword = keystoreProperties.getProperty("storePassword")
             }
+        }
+    }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
         }
     }
 

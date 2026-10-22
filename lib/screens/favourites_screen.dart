@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/services/favorites_service.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/responsive.dart';
 import '../data/content_repository.dart';
 import '../models/learning_item.dart';
 import '../widgets/item_card.dart';
@@ -59,22 +60,25 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           body: Column(
             children: [
               // Filter Chips
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Row(
-                  children: [
-                    _buildFilterChip('All', allFavItems.length),
-                    const SizedBox(width: 8),
-                    _buildFilterChip(
-                      'Words',
-                      allFavItems.where((i) => i.isWord).length,
-                    ),
-                    const SizedBox(width: 8),
-                    _buildFilterChip(
-                      'Sentences',
-                      allFavItems.where((i) => i.isSentence).length,
-                    ),
-                  ],
+              ResponsiveContentWrapper(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    children: [
+                      _buildFilterChip('All', allFavItems.length),
+                      const SizedBox(width: 8),
+                      _buildFilterChip(
+                        'Words',
+                        allFavItems.where((i) => i.isWord).length,
+                      ),
+                      const SizedBox(width: 8),
+                      _buildFilterChip(
+                        'Sentences',
+                        allFavItems.where((i) => i.isSentence).length,
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
@@ -82,16 +86,18 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
               Expanded(
                 child: filteredItems.isEmpty
                     ? _buildEmptyState()
-                    : ListView.builder(
-                        padding: const EdgeInsets.only(top: 4, bottom: 24),
-                        itemCount: filteredItems.length,
-                        itemBuilder: (context, index) {
-                          final item = filteredItems[index];
-                          return ItemCard(
-                            key: ValueKey(item.id),
-                            item: item,
-                          );
-                        },
+                    : ResponsiveContentWrapper(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.only(top: 4, bottom: 24),
+                          itemCount: filteredItems.length,
+                          itemBuilder: (context, index) {
+                            final item = filteredItems[index];
+                            return ItemCard(
+                              key: ValueKey(item.id),
+                              item: item,
+                            );
+                          },
+                        ),
                       ),
               ),
             ],
@@ -139,10 +145,12 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Center(
-      child: Padding(
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               padding: const EdgeInsets.all(24),

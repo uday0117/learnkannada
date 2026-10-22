@@ -94,25 +94,49 @@ class ItemCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
 
-                // Audio Action Button
-                IconButton.filledTonal(
-                  onPressed: () {
-                    TtsService().speak(item.kannada);
+                // Audio Action Button (Unmute / Mute Toggle)
+                ValueListenableBuilder<String?>(
+                  valueListenable: TtsService().currentlyPlayingId,
+                  builder: (context, playingId, _) {
+                    final isPlaying = playingId == item.id;
+                    return IconButton.filledTonal(
+                      onPressed: () {
+                        TtsService().toggleSpeak(
+                          id: item.id,
+                          text: item.kannada,
+                        );
+                      },
+                      tooltip: isPlaying
+                          ? 'Mute / Stop audio'
+                          : 'Unmute / Play pronunciation',
+                      style: IconButton.styleFrom(
+                        backgroundColor: isPlaying
+                            ? (isDark
+                                ? AppColors.accentGreen.withValues(alpha: 0.3)
+                                : AppColors.primary.withValues(alpha: 0.2))
+                            : (isDark
+                                ? AppColors.darkGreenTint
+                                : AppColors.greenTint),
+                        foregroundColor: isPlaying
+                            ? (isDark ? AppColors.goldVibrant : AppColors.primary)
+                            : (isDark ? AppColors.accentGreen : AppColors.primary),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                      ),
+                      icon: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        child: Icon(
+                          isPlaying
+                              ? Icons.volume_off_rounded
+                              : Icons.volume_up_rounded,
+                          key: ValueKey<bool>(isPlaying),
+                          size: 22,
+                        ),
+                      ),
+                    );
                   },
-                  tooltip: 'Listen pronunciation',
-                  style: IconButton.styleFrom(
-                    backgroundColor: isDark
-                        ? AppColors.darkGreenTint
-                        : AppColors.greenTint,
-                    foregroundColor: isDark
-                        ? AppColors.accentGreen
-                        : AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.all(10),
-                  ),
-                  icon: const Icon(Icons.volume_up_rounded, size: 22),
                 ),
                 const SizedBox(width: 4),
 

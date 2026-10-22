@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/responsive.dart';
 import '../data/content_repository.dart';
 import '../models/learning_item.dart';
 import '../widgets/ad_banner_widget.dart';
@@ -23,6 +24,8 @@ class _SentencesScreenState extends State<SentencesScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryActiveColor = isDark ? AppColors.accentGreen : AppColors.primary;
+    final textScale = MediaQuery.textScalerOf(context).scale(1.0);
+    final chipBarHeight = (52.0 * textScale).clamp(52.0, 72.0);
 
     final categories = _repository.getSentenceCategories();
     final allSentences = _repository.getSentences();
@@ -59,63 +62,67 @@ class _SentencesScreenState extends State<SentencesScreen> {
       body: Column(
         children: [
           // Category Filter Chips
-          SizedBox(
-            height: 52,
-            child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 8),
-              itemBuilder: (context, index) {
-                final cat = categories[index];
-                final isSelected = cat == _selectedCategory;
-                return ChoiceChip(
-                  label: Text(cat),
-                  selected: isSelected,
-                  onSelected: (selected) {
-                    if (selected) {
-                      setState(() {
-                        _selectedCategory = cat;
-                      });
-                    }
-                  },
-                  selectedColor: primaryActiveColor,
-                  backgroundColor: AppColors.surface(context),
-                  labelStyle: TextStyle(
-                    color: isSelected
-                        ? (isDark ? Colors.black : Colors.white)
-                        : AppColors.text(context),
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    fontSize: 13,
-                  ),
-                  side: BorderSide(
-                    color: isSelected
-                        ? primaryActiveColor
-                        : AppColors.borderSide(context),
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  showCheckmark: false,
-                );
-              },
+          ResponsiveContentWrapper(
+            child: SizedBox(
+              height: chipBarHeight,
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                separatorBuilder: (_, _) => const SizedBox(width: 8),
+                itemBuilder: (context, index) {
+                  final cat = categories[index];
+                  final isSelected = cat == _selectedCategory;
+                  return ChoiceChip(
+                    label: Text(cat),
+                    selected: isSelected,
+                    onSelected: (selected) {
+                      if (selected) {
+                        setState(() {
+                          _selectedCategory = cat;
+                        });
+                      }
+                    },
+                    selectedColor: primaryActiveColor,
+                    backgroundColor: AppColors.surface(context),
+                    labelStyle: TextStyle(
+                      color: isSelected
+                          ? (isDark ? Colors.black : Colors.white)
+                          : AppColors.text(context),
+                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                      fontSize: 13,
+                    ),
+                    side: BorderSide(
+                      color: isSelected
+                          ? primaryActiveColor
+                          : AppColors.borderSide(context),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    showCheckmark: false,
+                  );
+                },
+              ),
             ),
           ),
 
           // Sentences Count Summary
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-            child: Row(
-              children: [
-                Text(
-                  '${filteredSentences.length} sentences found',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: AppColors.subtext(context),
-                    fontWeight: FontWeight.w500,
+          ResponsiveContentWrapper(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+              child: Row(
+                children: [
+                  Text(
+                    '${filteredSentences.length} sentences found',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: AppColors.subtext(context),
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 
@@ -123,22 +130,29 @@ class _SentencesScreenState extends State<SentencesScreen> {
           Expanded(
             child: filteredSentences.isEmpty
                 ? Center(
-                    child: Text(
-                      'No sentences in this category',
-                      style: TextStyle(color: AppColors.subtext(context)),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(24),
+                      child: Text(
+                        'No sentences in this category',
+                        style: TextStyle(color: AppColors.subtext(context)),
+                      ),
                     ),
                   )
-                : ListView.builder(
-                    padding: const EdgeInsets.only(top: 4, bottom: 24),
-                    itemCount: filteredSentences.length,
-                    itemBuilder: (context, index) {
-                      final sentence = filteredSentences[index];
-                      return ItemCard(item: sentence);
-                    },
+                : ResponsiveContentWrapper(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.only(top: 4, bottom: 24),
+                      itemCount: filteredSentences.length,
+                      itemBuilder: (context, index) {
+                        final sentence = filteredSentences[index];
+                        return ItemCard(item: sentence);
+                      },
+                    ),
                   ),
           ),
-          const AdBannerWidget(
-            margin: EdgeInsets.only(top: 4, bottom: 8),
+          const ResponsiveContentWrapper(
+            child: AdBannerWidget(
+              margin: EdgeInsets.only(top: 4, bottom: 8),
+            ),
           ),
         ],
       ),

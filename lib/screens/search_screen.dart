@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/responsive.dart';
 import '../data/content_repository.dart';
 import '../models/learning_item.dart';
 import '../widgets/item_card.dart';
@@ -58,43 +59,45 @@ class _SearchScreenState extends State<SearchScreen> {
         titleSpacing: 0,
         title: Padding(
           padding: const EdgeInsets.only(right: 16),
-          child: Container(
-            height: 46,
-            decoration: BoxDecoration(
-              color: AppColors.surface(context),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.borderSide(context)),
-            ),
-            child: TextField(
-              controller: _searchController,
-              autofocus: true,
-              onChanged: (_) => setState(() {}),
-              decoration: InputDecoration(
-                hintText: 'Search in Kannada, English...',
-                hintStyle: TextStyle(
-                  color: isDark ? AppColors.darkTextMuted : AppColors.textMuted,
-                  fontSize: 14,
-                ),
-                prefixIcon: Icon(
-                  Icons.search_rounded,
-                  color: isDark ? AppColors.accentGreen : AppColors.primary,
-                  size: 20,
-                ),
-                suffixIcon: _searchController.text.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.close_rounded, size: 18),
-                        onPressed: () {
-                          _searchController.clear();
-                          setState(() {});
-                        },
-                      )
-                    : null,
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(vertical: 12),
+          child: ResponsiveContentWrapper(
+            child: Container(
+              height: 46,
+              decoration: BoxDecoration(
+                color: AppColors.surface(context),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.borderSide(context)),
               ),
-              style: TextStyle(
-                fontSize: 15,
-                color: AppColors.text(context),
+              child: TextField(
+                controller: _searchController,
+                autofocus: true,
+                onChanged: (_) => setState(() {}),
+                decoration: InputDecoration(
+                  hintText: 'Search in Kannada, English...',
+                  hintStyle: TextStyle(
+                    color: isDark ? AppColors.darkTextMuted : AppColors.textMuted,
+                    fontSize: 14,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search_rounded,
+                    color: isDark ? AppColors.accentGreen : AppColors.primary,
+                    size: 20,
+                  ),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.close_rounded, size: 18),
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() {});
+                          },
+                        )
+                      : null,
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                ),
+                style: TextStyle(
+                  fontSize: 15,
+                  color: AppColors.text(context),
+                ),
               ),
             ),
           ),
@@ -103,16 +106,19 @@ class _SearchScreenState extends State<SearchScreen> {
       body: Column(
         children: [
           // Filter Tabs (All / Words / Sentences)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                _buildFilterChip('All'),
-                const SizedBox(width: 8),
-                _buildFilterChip('Words'),
-                const SizedBox(width: 8),
-                _buildFilterChip('Sentences'),
-              ],
+          ResponsiveContentWrapper(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  _buildFilterChip('All'),
+                  const SizedBox(width: 8),
+                  _buildFilterChip('Words'),
+                  const SizedBox(width: 8),
+                  _buildFilterChip('Sentences'),
+                ],
+              ),
             ),
           ),
 
@@ -122,7 +128,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 ? _buildEmptyPrompt()
                 : results.isEmpty
                     ? _buildNoResults(query)
-                    : _buildResultsList(wordResults, sentenceResults),
+                    : ResponsiveContentWrapper(
+                        child: _buildResultsList(wordResults, sentenceResults),
+                      ),
           ),
         ],
       ),
@@ -167,10 +175,12 @@ class _SearchScreenState extends State<SearchScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Center(
-      child: Padding(
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               padding: const EdgeInsets.all(20),
@@ -211,10 +221,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget _buildNoResults(String query) {
     return Center(
-      child: Padding(
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Icon(
               Icons.search_off_rounded,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/services/theme_service.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/responsive.dart';
 
 /// Bottom sheet dialog to select Light, Dark, or System theme mode
 void showThemeSelectorSheet(BuildContext context) {
@@ -10,6 +11,7 @@ void showThemeSelectorSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     backgroundColor: isDark ? AppColors.darkSurface : AppColors.surfaceWhite,
+    isScrollControlled: true,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
     ),
@@ -18,11 +20,14 @@ void showThemeSelectorSheet(BuildContext context) {
         valueListenable: themeService.themeMode,
         builder: (context, currentMode, _) {
           return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: ResponsiveContentWrapper(
+                maxWidth: 560,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -43,12 +48,14 @@ void showThemeSelectorSheet(BuildContext context) {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text(
-                        'Choose Appearance',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.text(context),
+                      Expanded(
+                        child: Text(
+                          'Choose Appearance',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.text(context),
+                          ),
                         ),
                       ),
                     ],
@@ -91,8 +98,9 @@ void showThemeSelectorSheet(BuildContext context) {
                 ],
               ),
             ),
-          );
-        },
+          ),
+        );
+      },
       );
     },
   );
