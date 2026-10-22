@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
-import '../core/theme/responsive.dart';
 import 'favourites_screen.dart';
 import 'home_screen.dart';
 import 'quiz_screen.dart';
@@ -72,46 +71,43 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ),
         child: SafeArea(
           top: false,
-          child: ResponsiveContentWrapper(
-            maxWidth: 800,
-            child: NavigationBar(
-              selectedIndex: _currentIndex,
-              onDestinationSelected: _onTabSelected,
-              backgroundColor: Colors.transparent,
-              indicatorColor: AppColors.subtleTint(context),
-              elevation: 0,
-              height: 68,
-              destinations: [
-                NavigationDestination(
-                  icon: const Icon(Icons.home_outlined),
-                  selectedIcon: Icon(Icons.home_rounded, color: primaryActiveColor),
-                  label: 'Home',
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.menu_book_outlined),
-                  selectedIcon:
-                      Icon(Icons.menu_book_rounded, color: primaryActiveColor),
-                  label: 'Words',
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.chat_bubble_outline_rounded),
-                  selectedIcon:
-                      Icon(Icons.chat_bubble_rounded, color: primaryActiveColor),
-                  label: 'Sentences',
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.help_outline_rounded),
-                  selectedIcon: Icon(Icons.quiz_rounded, color: primaryActiveColor),
-                  label: 'Quiz',
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.favorite_border_rounded),
-                  selectedIcon:
-                      const Icon(Icons.favorite_rounded, color: AppColors.favouritesColor),
-                  label: 'Favourites',
-                ),
-              ],
-            ),
+          child: NavigationBar(
+            selectedIndex: _currentIndex,
+            onDestinationSelected: _onTabSelected,
+            backgroundColor: Colors.transparent,
+            indicatorColor: AppColors.subtleTint(context),
+            elevation: 0,
+            height: 68,
+            destinations: [
+              NavigationDestination(
+                icon: const Icon(Icons.home_outlined),
+                selectedIcon: Icon(Icons.home_rounded, color: primaryActiveColor),
+                label: 'Home',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.menu_book_outlined),
+                selectedIcon:
+                    Icon(Icons.menu_book_rounded, color: primaryActiveColor),
+                label: 'Words',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.chat_bubble_outline_rounded),
+                selectedIcon:
+                    Icon(Icons.chat_bubble_rounded, color: primaryActiveColor),
+                label: 'Sentences',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.help_outline_rounded),
+                selectedIcon: Icon(Icons.quiz_rounded, color: primaryActiveColor),
+                label: 'Quiz',
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.favorite_border_rounded),
+                selectedIcon:
+                    const Icon(Icons.favorite_rounded, color: AppColors.favouritesColor),
+                label: 'Favourites',
+              ),
+            ],
           ),
         ),
       ),

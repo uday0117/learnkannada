@@ -145,6 +145,15 @@ void main() {
       expect(find.text('Words'), findsWidgets);
       expect(find.text('Sentences'), findsWidgets);
       expect(tester.takeException(), isNull);
+
+      // Verify NavigationBar is anchored at the bottom and body content is at the top
+      final navBarRect = tester.getRect(find.byType(NavigationBar));
+      expect(navBarRect.bottom, equals(640.0));
+      expect(navBarRect.top, greaterThan(500.0));
+
+      final welcomeRect = tester.getRect(find.text('Hello Learner!'));
+      expect(welcomeRect.top, lessThan(100.0));
+      expect(welcomeRect.height, greaterThan(15.0));
     });
   });
 }
