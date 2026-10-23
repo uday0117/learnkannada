@@ -9,6 +9,7 @@ import 'core/services/monetization_service.dart';
 import 'core/services/rating_service.dart';
 import 'core/services/theme_service.dart';
 import 'core/services/tts_service.dart';
+import 'core/services/update_service.dart';
 import 'core/theme/app_theme.dart';
 import 'data/content_repository.dart';
 import 'screens/splash_screen.dart';
@@ -41,6 +42,11 @@ void main() async {
   await RatingService().init();
 
   runApp(const LearnKannadaApp());
+
+  // Check for in-app updates in the background (Google Play flexible update)
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    UpdateService().checkForBackgroundUpdate();
+  });
 }
 
 class LearnKannadaApp extends StatelessWidget {
@@ -53,6 +59,7 @@ class LearnKannadaApp extends StatelessWidget {
       builder: (context, mode, _) {
         return MaterialApp(
           title: AppConfig.appTitle,
+          scaffoldMessengerKey: UpdateService.messengerKey,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../core/constants/app_config.dart';
 import '../core/services/rating_service.dart';
 import '../core/theme/app_theme.dart';
@@ -46,35 +47,43 @@ class _InAppRatingDialogState extends State<_InAppRatingDialog> {
 
   Future<void> _handlePrimaryAction() async {
     final ratingService = RatingService();
+    final feedback = _feedbackController.text.trim();
 
     if (_selectedStars >= 4) {
-      Navigator.of(context).pop();
+      final messenger = ScaffoldMessenger.of(context);
+      final navigator = Navigator.of(context);
+
+      if (feedback.isNotEmpty) {
+        // Copy user's review to clipboard so they can effortlessly paste it on Google Play
+        await Clipboard.setData(ClipboardData(text: feedback));
+      }
+
+      navigator.pop();
       await ratingService.requestInAppReview();
 
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Row(
-              children: [
-                Icon(Icons.favorite_rounded, color: Colors.white, size: 20),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    'ಧನ್ಯವಾದಗಳು! Thank you for supporting Learn Kannada!',
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
+      messenger.showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.favorite_rounded, color: Colors.white, size: 20),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  feedback.isNotEmpty
+                      ? 'ಧನ್ಯವಾದಗಳು! Review copied to clipboard — paste it on Google Play!'
+                      : 'ಧನ್ಯವಾದಗಳು! Thank you for supporting Learn Kannada!',
+                  style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
-              ],
-            ),
-            backgroundColor: AppColors.primary,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ],
           ),
-        );
-      }
+          backgroundColor: AppColors.primary,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+      );
     } else {
       // For 1-3 stars, allow sending feedback
-      final feedback = _feedbackController.text.trim();
       if (feedback.isNotEmpty) {
         await ratingService.sendFeedbackEmail(
           rating: _selectedStars,
@@ -298,34 +307,62 @@ class _InAppRatingDialogState extends State<_InAppRatingDialog> {
           ),
           const SizedBox(height: 18),
 
-          // If rating < 4, offer constructive feedback input
-          if (!isHighRating) ...[
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.surfaceSoftColor(context),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.borderSide(context)),
+          // Feedback / Review Input box for ALL ratings (with dynamic hint and helper)
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.surfaceSoftColor(context),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: AppColors.borderSide(context)),
+            ),
+            child: TextField(
+              controller: _feedbackController,
+              maxLines: 3,
+              style: TextStyle(
+                fontSize: 13,
+                color: AppColors.text(context),
               ),
-              child: TextField(
-                controller: _feedbackController,
-                maxLines: 3,
-                style: TextStyle(
+              decoration: InputDecoration(
+                hintText: isHighRating
+                    ? 'What did you like most? Write a review (optional)...'
+                    : 'Tell us how we can improve (optional)...',
+                hintStyle: TextStyle(
                   fontSize: 13,
-                  color: AppColors.text(context),
+                  color: AppColors.subtext(context),
                 ),
-                decoration: InputDecoration(
-                  hintText: 'Tell us how we can improve (optional)...',
-                  hintStyle: TextStyle(
-                    fontSize: 13,
-                    color: AppColors.subtext(context),
-                  ),
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.all(12),
-                ),
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.all(12),
               ),
             ),
-            const SizedBox(height: 18),
-          ],
+          ),
+          const SizedBox(height: 6),
+          // Helpful subtext explaining how the review/feedback is processed
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  isHighRating ? Icons.info_outline_rounded : Icons.mail_outline_rounded,
+                  size: 14,
+                  color: AppColors.subtext(context),
+                ),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    isHighRating
+                        ? 'Google Play will open to publish your review. If you write comments above, we\'ll copy them so you can paste easily!'
+                        : 'Your comments will be sent directly to our developer team so we can make the app better.',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: AppColors.subtext(context),
+                      height: 1.3,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
 
           // Primary Action Button
           SizedBox(
