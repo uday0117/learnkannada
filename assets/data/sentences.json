@@ -1798,5 +1798,533 @@
     "english": "Victory to Mother Kannada!",
     "category": "Learning Kannada",
     "type": "sentence"
+  },
+  {
+    "id": "s_226",
+    "kannada": "ಮೆಟ್ರೋ ಟಿಕೆಟ್ ಎಲ್ಲಿ ಸಿಗುತ್ತದೆ?",
+    "transliteration": "Meṭrō ṭikeṭ elli siguttade?",
+    "english": "Where can I get a metro ticket?",
+    "category": "Auto & Commute",
+    "type": "sentence"
+  },
+  {
+    "id": "s_227",
+    "kannada": "ಮುಂದಿನ ನಿಲ್ದಾಣ ಯಾವುದು?",
+    "transliteration": "Mundina nildāṇa yāvudu?",
+    "english": "Which is the next station / stop?",
+    "category": "Auto & Commute",
+    "type": "sentence"
+  },
+  {
+    "id": "s_228",
+    "kannada": "ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ನಿಧಾನವಾಗಿ ಚಲಾಯಿಸಿ.",
+    "transliteration": "Dayaviṭṭu svalpa nidhānavāgi chalāyisi.",
+    "english": "Please drive a little slower.",
+    "category": "Auto & Commute",
+    "type": "sentence"
+  },
+  {
+    "id": "s_229",
+    "kannada": "ಇಲ್ಲಿಂದ ಮೆಜೆಸ್ಟಿಕ್‌ಗೆ ಎಷ್ಟು ದೂರ?",
+    "transliteration": "Illinda Majestic-ge eṣhṭu dūra?",
+    "english": "How far is Majestic from here?",
+    "category": "Auto & Commute",
+    "type": "sentence"
+  },
+  {
+    "id": "s_230",
+    "kannada": "ಸಿಗ್ನಲ್‌ನಲ್ಲಿ ಬಲಕ್ಕೆ ತಿರುಗಿ.",
+    "transliteration": "Signal-nalli balakke tirugi.",
+    "english": "Turn right at the traffic signal.",
+    "category": "Auto & Commute",
+    "type": "sentence"
+  },
+  {
+    "id": "s_231",
+    "kannada": "ಸಿಗ್ನಲ್‌ನಲ್ಲಿ ಎಡಕ್ಕೆ ತಿರುಗಿ.",
+    "transliteration": "Signal-nalli eḍakke tirugi.",
+    "english": "Turn left at the traffic signal.",
+    "category": "Auto & Commute",
+    "type": "sentence"
+  },
+  {
+    "id": "s_232",
+    "kannada": "ನೇರವಾಗಿ ಹೋಗಿ, ನಂತರ ಎಡಕ್ಕೆ ತಿರುಗಿ.",
+    "transliteration": "Nēravāgi hōgi, nantara eḍakke tirugi.",
+    "english": "Go straight, then turn left.",
+    "category": "Directions & Places",
+    "type": "sentence"
+  },
+  {
+    "id": "s_233",
+    "kannada": "ನನಗೆ ಕ್ಯಾಬ್ ಬುಕ್ ಮಾಡಲು ಸಹಾಯ ಮಾಡಿ.",
+    "transliteration": "Nanage cab book māḍalu sahāya māḍi.",
+    "english": "Please help me book a cab.",
+    "category": "Auto & Commute",
+    "type": "sentence"
+  },
+  {
+    "id": "s_234",
+    "kannada": "ಇಲ್ಲಿ ಪಾರ್ಕಿಂಗ್ ಜಾಗ ಇದೆಯಾ?",
+    "transliteration": "Illi parking jāga ideyā?",
+    "english": "Is there parking space available here?",
+    "category": "Directions & Places",
+    "type": "sentence"
+  },
+  {
+    "id": "s_235",
+    "kannada": "ಒಂದು ಕಪ್ ಬಿಸಿ ಫಿಲ್ಟರ್ ಕಾಫಿ ಕೊಡಿ.",
+    "transliteration": "Ondu cup bisi filter coffee koḍi.",
+    "english": "Please give one cup of hot filter coffee.",
+    "category": "Food & Dining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_236",
+    "kannada": "ಇಲ್ಲಿ ಕುಡಿಯುವ ನೀರು ಸಿಗುತ್ತದೆಯೇ?",
+    "transliteration": "Illi kuḍiyuva nīru siguttideyē?",
+    "english": "Is drinking water available here?",
+    "category": "Food & Dining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_237",
+    "kannada": "ತಿಂಡಿಗೆ ಏನು ಸ್ಪೆಷಲ್ ಇದೆ?",
+    "transliteration": "Tiṇḍige ēnu special ide?",
+    "english": "What is special for breakfast / snacks?",
+    "category": "Food & Dining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_238",
+    "kannada": "ಊಟ ತುಂಬಾ ರುಚಿಯಾಗಿತ್ತು.",
+    "transliteration": "Ūṭa tumbā ruciyāgittu.",
+    "english": "The meal was very delicious.",
+    "category": "Food & Dining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_239",
+    "kannada": "ದಯವಿಟ್ಟು ಒಂದು ಪ್ಲೇಟ್ ಮಸಾಲೆ ದೋಸೆ ಕೊಡಿ.",
+    "transliteration": "Dayaviṭṭu ondu plate masāle dōse koḍi.",
+    "english": "Please give one plate of masala dosa.",
+    "category": "Food & Dining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_240",
+    "kannada": "ಪಾರ್ಸೆಲ್ ಕಟ್ಟಿಕೊಡಿ.",
+    "transliteration": "Parcel kaṭṭikoḍi.",
+    "english": "Please pack it for takeaway.",
+    "category": "Food & Dining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_241",
+    "kannada": "ಇದು ಸಸ್ಯಾಹಾರಿ ಹೋಟೆಲ್ ಹೌದಾ?",
+    "transliteration": "Idu sasyāhāri hotel haudā?",
+    "english": "Is this a pure vegetarian restaurant?",
+    "category": "Food & Dining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_242",
+    "kannada": "ಊಟದ ಸಮಯವಾಯಿತು, ಬನ್ನಿ ಊಟ ಮಾಡೋಣ.",
+    "transliteration": "Ūṭada samayavāyitu, banni ūṭa māḍōṇa.",
+    "english": "It is meal time, let us eat together.",
+    "category": "Food & Dining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_243",
+    "kannada": "ಯುಪಿಐ ಅಥವಾ ಫೋನ್‌ಪೇ ಇದೆಯಾ?",
+    "transliteration": "UPI athavā PhonePe ideyā?",
+    "english": "Do you accept UPI or PhonePe?",
+    "category": "Shopping & Bargaining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_244",
+    "kannada": "ನನ್ನ ಬಳಿ ಚಿಲ್ಲರೆ ಇಲ್ಲ.",
+    "transliteration": "Nanna baḷi chillare illa.",
+    "english": "I do not have loose change.",
+    "category": "Shopping & Bargaining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_245",
+    "kannada": "ಐದು ನೂರು ರೂಪಾಯಿಗೆ ಚಿಲ್ಲರೆ ಇದೆಯಾ?",
+    "transliteration": "Aidu nūru rūpāyige chillare ideyā?",
+    "english": "Do you have change for five hundred rupees?",
+    "category": "Shopping & Bargaining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_246",
+    "kannada": "ಇದು ತಾಜಾ ತರಕಾರಿನಾ?",
+    "transliteration": "Idu tājā tarakārinā?",
+    "english": "Are these fresh vegetables?",
+    "category": "Shopping & Bargaining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_247",
+    "kannada": "ಒಂದು ಕೆಜಿ ಈರುಳ್ಳಿ ಕೊಡಿ.",
+    "transliteration": "Ondu kg īruḷḷi koḍi.",
+    "english": "Please give one kg of onions.",
+    "category": "Shopping & Bargaining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_248",
+    "kannada": "ರಶೀದಿ ಕೊಡ್ತೀರಾ?",
+    "transliteration": "Raśīdi koḍtīrā?",
+    "english": "Will you provide a receipt / bill?",
+    "category": "Shopping & Bargaining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_249",
+    "kannada": "ಟ್ರಯಲ್ ರೂಮ್ ಎಲ್ಲಿದೆ?",
+    "transliteration": "Trial room ellide?",
+    "english": "Where is the trial / fitting room?",
+    "category": "Shopping & Bargaining",
+    "type": "sentence"
+  },
+  {
+    "id": "s_250",
+    "kannada": "ನಿಮ್ಮ ಕುಟುಂಬದವರು ಹೇಗಿದ್ದಾರೆ?",
+    "transliteration": "Nimma kuṭumbadavaru hēgiddāre?",
+    "english": "How is your family?",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_251",
+    "kannada": "ಇವತ್ತು ವಾತಾವರಣ ತುಂಬಾ ಚೆನ್ನಾಗಿದೆ.",
+    "transliteration": "Ivattu vātāvaraṇa tumbā chennāgide.",
+    "english": "The weather is very pleasant today.",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_252",
+    "kannada": "ನಿಮಗೆ ಭೇಟಿಯಾಗಿ ತುಂಬಾ ಸಂತೋಷವಾಯಿತು.",
+    "transliteration": "Nimage bhēṭiyāgi tumbā santōṣhavāyitu.",
+    "english": "It was very nice meeting you.",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_253",
+    "kannada": "ಮತ್ತೆ ಸಿಗೋಣ!",
+    "transliteration": "Matte sigōṇa!",
+    "english": "See you again / Catch you later!",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_254",
+    "kannada": "ದಯವಿಟ್ಟು ಐದು ನಿಮಿಷ ಕಾಯಿರಿ.",
+    "transliteration": "Dayaviṭṭu aidu nimiṣha kāyiri.",
+    "english": "Please wait for five minutes.",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_255",
+    "kannada": "ನನಗೆ ಸ್ವಲ್ಪ ಸಹಾಯ ಬೇಕು.",
+    "transliteration": "Nanage svalpa sahāya bēku.",
+    "english": "I need a little help.",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_256",
+    "kannada": "ಚಿಂತೆ ಮಾಡಬೇಡಿ, ಎಲ್ಲವೂ ಸರಿಯಾಗುತ್ತದೆ.",
+    "transliteration": "Chinte māḍabēḍi, ellavū sariyāguttade.",
+    "english": "Do not worry, everything will be fine.",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_257",
+    "kannada": "ಶುಭ ರಾತ್ರಿ, ಒಳ್ಳೆಯ ಕನಸು ಕಾಣಿ.",
+    "transliteration": "Śubha rātri, oḷḷeya kanasu kāṇi.",
+    "english": "Good night, sweet dreams.",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_258",
+    "kannada": "ನಿಮ್ಮ ಊರು ಯಾವುದು?",
+    "transliteration": "Nimma ūru yāvudu?",
+    "english": "Which is your hometown / native place?",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_259",
+    "kannada": "ನೀವು ಯಾವಾಗ ಬೆಂಗಳೂರಿಗೆ ಬಂದಿರಿ?",
+    "transliteration": "Nīvu yāvāga Beṅgaḷūrige bandiri?",
+    "english": "When did you move to Bengaluru?",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_260",
+    "kannada": "ನನಗೆ ಬೆಂಗಳೂರು ತುಂಬಾ ಇಷ್ಟ.",
+    "transliteration": "Nanage Beṅgaḷūru tumbā iṣhṭa.",
+    "english": "I really love Bengaluru city.",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_261",
+    "kannada": "ನಿಮ್ಮ ಜನ್ಮದಿನದ ಶುಭಾಶಯಗಳು!",
+    "transliteration": "Nimma janmadinada śubhāśayagaḷu!",
+    "english": "Happy Birthday to you!",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_262",
+    "kannada": "ದೀಪಾವಳಿ ಹಬ್ಬದ ಶುಭಾಶಯಗಳು!",
+    "transliteration": "Dīpāvaḷi habbada śubhāśayagaḷu!",
+    "english": "Happy Deepavali festival wishes!",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_263",
+    "kannada": "ಯುಗಾದಿ ಹಬ್ಬದ ಹಾರ್ದಿಕ ಶುಭಾಶಯಗಳು!",
+    "transliteration": "Yugādi habbada hārdika śubhāśayagaḷu!",
+    "english": "Hearty Ugadi New Year wishes!",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_264",
+    "kannada": "ಕನ್ನಡ ರಾಜ್ಯೋತ್ಸವದ ಶುಭಾಶಯಗಳು!",
+    "transliteration": "Kannaḍa Rājyōtsavada śubhāśayagaḷu!",
+    "english": "Happy Kannada Rajyotsava!",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_265",
+    "kannada": "ನಿಮ್ಮ ಸಹಾಯಕ್ಕೆ ತುಂಬಾ ಧನ್ಯವಾದಗಳು.",
+    "transliteration": "Nimma sahāyakke tumbā dhanyavādagaḷu.",
+    "english": "Thank you very much for your kind help.",
+    "category": "Daily Life",
+    "type": "sentence"
+  },
+  {
+    "id": "s_266",
+    "kannada": "ನಾನು ಹದಿನೈದು ನಿಮಿಷದಲ್ಲಿ ಬರುತ್ತೇನೆ.",
+    "transliteration": "Nānu hadinaidu nimiṣhadalli baruttēne.",
+    "english": "I will arrive in fifteen minutes.",
+    "category": "Work & Office",
+    "type": "sentence"
+  },
+  {
+    "id": "s_267",
+    "kannada": "ದಯವಿಟ್ಟು ಆ ಫೈಲ್ ನನಗೆ ಇಮೇಲ್ ಮಾಡಿ.",
+    "transliteration": "Dayaviṭṭu ā file nanage email māḍi.",
+    "english": "Please email that file to me.",
+    "category": "Work & Office",
+    "type": "sentence"
+  },
+  {
+    "id": "s_268",
+    "kannada": "ನಾಳೆ ಬೆಳಗ್ಗೆ ಹತ್ತು ಗಂಟೆಗೆ ಮೀಟಿಂಗ್ ಇದೆ.",
+    "transliteration": "Nāḷe beḷagge hattu gaṇṭege meeting ide.",
+    "english": "There is a meeting tomorrow morning at 10 AM.",
+    "category": "Work & Office",
+    "type": "sentence"
+  },
+  {
+    "id": "s_269",
+    "kannada": "ನಿಮ್ಮ ಫೋನ್ ನಂಬರ್ ಕೊಡುತ್ತೀರಾ?",
+    "transliteration": "Nimma phone number koḍuttīrā?",
+    "english": "Could you please share your phone number?",
+    "category": "Work & Office",
+    "type": "sentence"
+  },
+  {
+    "id": "s_270",
+    "kannada": "ನನ್ನ ಲ್ಯಾಪ್ಟಾಪ್ ಚಾರ್ಜರ್ ಮರೆತುಬಿಟ್ಟೆ.",
+    "transliteration": "Nanna laptop charger maretubiṭṭe.",
+    "english": "I forgot my laptop charger.",
+    "category": "Work & Office",
+    "type": "sentence"
+  },
+  {
+    "id": "s_271",
+    "kannada": "ವೈ-ಫೈ ಪಾಸ್‌ವರ್ಡ್ ಏನು?",
+    "transliteration": "Wi-Fi password ēnu?",
+    "english": "What is the Wi-Fi password?",
+    "category": "Work & Office",
+    "type": "sentence"
+  },
+  {
+    "id": "s_272",
+    "kannada": "ಇವತ್ತು ನಾನು ಮನೆಯಿಂದ ಕೆಲಸ ಮಾಡುತ್ತಿದ್ದೇನೆ.",
+    "transliteration": "Ivattu nānu maneyinda kelasa māḍuttiddēne.",
+    "english": "Today I am working from home (WFH).",
+    "category": "Work & Office",
+    "type": "sentence"
+  },
+  {
+    "id": "s_273",
+    "kannada": "ಲಿಫ್ಟ್ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲ.",
+    "transliteration": "Lift kelasa māḍuttilla.",
+    "english": "The lift / elevator is not working.",
+    "category": "Work & Office",
+    "type": "sentence"
+  },
+  {
+    "id": "s_274",
+    "kannada": "ಇಲ್ಲಿ ಮೊಬೈಲ್ ನೆಟ್‌ವರ್ಕ್ ಸಿಗುತ್ತಿಲ್ಲ.",
+    "transliteration": "Illi mobile network siguttilla.",
+    "english": "There is no mobile network / signal here.",
+    "category": "Work & Office",
+    "type": "sentence"
+  },
+  {
+    "id": "s_275",
+    "kannada": "ಕಸವನ್ನು ಕಸದ ಬುಟ್ಟಿಗೆ ಹಾಕಿ.",
+    "transliteration": "Kasavannu kasada buṭṭige hāki.",
+    "english": "Please throw garbage into the dustbin.",
+    "category": "House & Neighborhood",
+    "type": "sentence"
+  },
+  {
+    "id": "s_276",
+    "kannada": "ನೀರು ಯಾವಾಗ ಬರುತ್ತದೆ?",
+    "transliteration": "Nīru yāvāga baruttade?",
+    "english": "What time does the water supply come?",
+    "category": "House & Neighborhood",
+    "type": "sentence"
+  },
+  {
+    "id": "s_277",
+    "kannada": "ಕರೆಂಟ್ ಬಂತು.",
+    "transliteration": "Current bantu.",
+    "english": "The electricity / power has returned.",
+    "category": "House & Neighborhood",
+    "type": "sentence"
+  },
+  {
+    "id": "s_278",
+    "kannada": "ಹಾಲಿನ ಪ್ಯಾಕೆಟ್ ಬಂತಾ?",
+    "transliteration": "Hālina packet bantā?",
+    "english": "Did the milk packet arrive?",
+    "category": "House & Neighborhood",
+    "type": "sentence"
+  },
+  {
+    "id": "s_279",
+    "kannada": "ದಯವಿಟ್ಟು ಹೊರಗೆ ಪಾದರಕ್ಷೆ ಬಿಡಿ.",
+    "transliteration": "Dayaviṭṭu horage pādarakṣhe biḍi.",
+    "english": "Please leave your footwear outside.",
+    "category": "House & Neighborhood",
+    "type": "sentence"
+  },
+  {
+    "id": "s_280",
+    "kannada": "ದಯವಿಟ್ಟು ಬಾಗಿಲು ಮುಚ್ಚಿ.",
+    "transliteration": "Dayaviṭṭu bāgilu mucchi.",
+    "english": "Please close the door.",
+    "category": "House & Neighborhood",
+    "type": "sentence"
+  },
+  {
+    "id": "s_281",
+    "kannada": "ದಯವಿಟ್ಟು ಕಿಟಕಿ ತೆರೆಯಿರಿ.",
+    "transliteration": "Dayaviṭṭu kiṭaki tereyiri.",
+    "english": "Please open the window.",
+    "category": "House & Neighborhood",
+    "type": "sentence"
+  },
+  {
+    "id": "s_282",
+    "kannada": "ನನಗೆ ಜ್ವರ ಮತ್ತು ತಲೆನೋವು ಇದೆ.",
+    "transliteration": "Nanage jvara mattu talenōvu ide.",
+    "english": "I have fever and headache.",
+    "category": "Emergency & Health",
+    "type": "sentence"
+  },
+  {
+    "id": "s_283",
+    "kannada": "ಹತ್ತಿರದ ಮೆಡಿಕಲ್ ಶಾಪ್ ಎಲ್ಲಿದೆ?",
+    "transliteration": "Hattirada medical shop ellide?",
+    "english": "Where is the nearest pharmacy / medical store?",
+    "category": "Emergency & Health",
+    "type": "sentence"
+  },
+  {
+    "id": "s_284",
+    "kannada": "ಈ ಮಾತ್ರೆಗಳನ್ನು ದಿನಕ್ಕೆ ಎರಡು ಬಾರಿ ತಗೊಳ್ಳಿ.",
+    "transliteration": "Ī mātregaḷannu dinakke eraḍu bāri tagoḷḷi.",
+    "english": "Take these tablets twice a day.",
+    "category": "Emergency & Health",
+    "type": "sentence"
+  },
+  {
+    "id": "s_285",
+    "kannada": "ಆಂಬ್ಯುಲೆನ್ಸ್‌ಗೆ ಕರೆ ಮಾಡಿ!",
+    "transliteration": "Ambulance-ge kare māḍi!",
+    "english": "Call an ambulance immediately!",
+    "category": "Emergency & Health",
+    "type": "sentence"
+  },
+  {
+    "id": "s_286",
+    "kannada": "ನಾನು ಪ್ರತಿದಿನ ಕನ್ನಡ ಅಭ್ಯಾಸ ಮಾಡುತ್ತೇನೆ.",
+    "transliteration": "Nānu pratidina Kannaḍa abhyāsa māḍuttēne.",
+    "english": "I practice Kannada every day.",
+    "category": "Learning Kannada",
+    "type": "sentence"
+  },
+  {
+    "id": "s_287",
+    "kannada": "ತಪ್ಪಾದರೆ ದಯವಿಟ್ಟು ತಿದ್ದಿ.",
+    "transliteration": "Tappādare dayaviṭṭu tiddi.",
+    "english": "Please correct me if I make a mistake.",
+    "category": "Learning Kannada",
+    "type": "sentence"
+  },
+  {
+    "id": "s_288",
+    "kannada": "ಇದನ್ನು ಕನ್ನಡದಲ್ಲಿ ಹೇಗೆ ಹೇಳುವುದು?",
+    "transliteration": "Idannu Kannaḍadalli hēge hēḷuvudu?",
+    "english": "How do you say this in Kannada?",
+    "category": "Learning Kannada",
+    "type": "sentence"
+  },
+  {
+    "id": "s_289",
+    "kannada": "ನನಗೆ ಹೊಸ ಕನ್ನಡ ಪದಗಳನ್ನು ಕಲಿಸಿ.",
+    "transliteration": "Nanage hosa Kannaḍa padagaḷannu kalisi.",
+    "english": "Please teach me new Kannada words.",
+    "category": "Learning Kannada",
+    "type": "sentence"
+  },
+  {
+    "id": "s_290",
+    "kannada": "ಕನ್ನಡ ನಾಡು ಮತ್ತು ಭಾಷೆ ನನಗೆ ತುಂಬಾ ಇಷ್ಟ.",
+    "transliteration": "Kannaḍa nāḍu mattu bhāṣhe nanage tumbā iṣhṭa.",
+    "english": "I really love the land and language of Karnataka.",
+    "category": "Learning Kannada",
+    "type": "sentence"
+  },
+  {
+    "id": "s_291",
+    "kannada": "ನಾನು ಕಲಿಯಲು ಪ್ರಯತ್ನಿಸುತ್ತೇನೆ.",
+    "transliteration": "Nānu kaliyalu prayatnisuttēne.",
+    "english": "I will definitely try to learn.",
+    "category": "Learning Kannada",
+    "type": "sentence"
   }
 ]

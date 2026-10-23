@@ -22,24 +22,44 @@ class TtsService {
   Future<void> init() async {
     if (_isInitialized) return;
     try {
-      await _flutterTts.setLanguage(AppConfig.ttsLocale);
+      // On Android, use Google TTS engine if available since it reliably supports Kannada (kn-IN)
+      if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+        try {
+          final engines = await _flutterTts.getEngines;
+          if (engines is List && engines.contains('com.google.android.tts')) {
+            await _flutterTts.setEngine('com.google.android.tts');
+          }
+        } catch (e) {
+          debugPrint('TTS engine configuration error: $e');
+        }
+      }
+
+      // Configure language with fallback (kn-IN -> kn_IN -> kn)
+      dynamic langResult = await _flutterTts.setLanguage(AppConfig.ttsLocale);
+      if (langResult == 0) {
+        langResult = await _flutterTts.setLanguage('kn_IN');
+        if (langResult == 0) {
+          await _flutterTts.setLanguage('kn');
+        }
+      }
+
       await _flutterTts.setSpeechRate(0.42); // slightly slowed for better learning
       await _flutterTts.setVolume(1.0);
       await _flutterTts.setPitch(1.0);
 
-      // On iOS, configure audio category to playback so audio plays even when
-      // the device's hardware silent/ringer switch is muted.
+      // On iOS, configure audio category to playback with speaker output so audio
+      // plays clearly even when the device's hardware silent/ringer switch is muted.
       if (!kIsWeb && defaultTargetPlatform == TargetPlatform.iOS) {
         await _flutterTts.setIosAudioCategory(
           IosTextToSpeechAudioCategory.playback,
           [
-            IosTextToSpeechAudioCategoryOptions.duckOthers,
+            IosTextToSpeechAudioCategoryOptions.defaultToSpeaker,
+            IosTextToSpeechAudioCategoryOptions.allowBluetooth,
+            IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
           ],
           IosTextToSpeechAudioMode.defaultMode,
         );
         await _flutterTts.setSharedInstance(true);
-      } else if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-        await _flutterTts.awaitSpeakCompletion(true);
       }
 
       _flutterTts.setStartHandler(() {
@@ -85,10 +105,15 @@ class TtsService {
     try {
       await _flutterTts.stop();
       currentlyPlayingId.value = id;
-      final result = await _flutterTts.speak(text);
-      if (result != 1) {
-        currentlyPlayingId.value = null;
-        return false;
+      final dynamic result = await _flutterTts.speak(text);
+      if (result == 0) {
+        // If initial language code was rejected by the engine, fallback to generic Kannada
+        await _flutterTts.setLanguage('kn');
+        final dynamic retryResult = await _flutterTts.speak(text);
+        if (retryResult == 0) {
+          currentlyPlayingId.value = null;
+          return false;
+        }
       }
       return true;
     } catch (e) {

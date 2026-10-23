@@ -18,6 +18,7 @@ class MonetizationService {
   DateTime? _lastInterstitialTime;
 
   bool get isPremium => _isPremium;
+  int get quizzesCompletedCount => _quizzesCompletedSinceLastAd;
 
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
@@ -34,25 +35,21 @@ class MonetizationService {
   /// Evaluates whether an interstitial ad should be triggered.
   /// Rule:
   /// 1. Premium users NEVER see ads.
-  /// 2. Show only every 2 completed quizzes.
-  /// 3. Minimum 3 minutes gap between full-screen ads so user is never annoyed.
+  /// 2. Shows on quiz completion for non-premium users.
+  /// 3. Brief 10-second debounce prevents rapid accidental double-shows.
   bool shouldShowQuizInterstitial() {
     if (_isPremium) return false;
 
-    _quizzesCompletedSinceLastAd++;
     final now = DateTime.now();
 
-    // Respect user peace of mind: at least 2 quizzes completed
-    if (_quizzesCompletedSinceLastAd < 2) return false;
-
-    // Minimum 180 seconds between full-screen ads
+    // Prevent duplicate triggers within 10 seconds
     if (_lastInterstitialTime != null &&
-        now.difference(_lastInterstitialTime!).inSeconds < 180) {
+        now.difference(_lastInterstitialTime!).inSeconds < 10) {
       return false;
     }
 
     _lastInterstitialTime = now;
-    _quizzesCompletedSinceLastAd = 0;
+    _quizzesCompletedSinceLastAd++;
     return true;
   }
 }

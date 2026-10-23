@@ -6,6 +6,7 @@ import 'core/constants/app_config.dart';
 import 'core/services/ad_service.dart';
 import 'core/services/favorites_service.dart';
 import 'core/services/monetization_service.dart';
+import 'core/services/rating_service.dart';
 import 'core/services/theme_service.dart';
 import 'core/services/tts_service.dart';
 import 'core/theme/app_theme.dart';
@@ -30,13 +31,14 @@ void main() async {
     );
   } catch (_) {}
 
-  // Initialize repository (loads bundled 650+ words/sentences), favorites, monetization, theme, ads, and TTS
+  // Initialize repository (loads bundled 820+ words/sentences), favorites, monetization, theme, ads, TTS, and rating service
   await ContentRepository().init();
   await FavoritesService().init();
   await MonetizationService().init();
   await ThemeService().init();
   await TtsService().init();
   await AdService().init();
+  await RatingService().init();
 
   runApp(const LearnKannadaApp());
 }

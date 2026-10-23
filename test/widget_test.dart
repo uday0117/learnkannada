@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:learnkannada/core/constants/app_config.dart';
 import 'package:learnkannada/core/services/ad_service.dart';
 import 'package:learnkannada/core/services/favorites_service.dart';
+import 'package:learnkannada/core/services/monetization_service.dart';
 import 'package:learnkannada/core/services/theme_service.dart';
 import 'package:learnkannada/core/services/tts_service.dart';
 import 'package:learnkannada/data/content_repository.dart';
 import 'package:learnkannada/models/learning_item.dart';
+import 'package:learnkannada/core/services/rating_service.dart';
+import 'package:learnkannada/widgets/developer_easter_egg_dialog.dart';
+import 'package:learnkannada/widgets/in_app_rating_dialog.dart';
 import 'package:learnkannada/main.dart';
 
 void main() {
@@ -154,6 +159,110 @@ void main() {
       final welcomeRect = tester.getRect(find.text('Hello Learner!'));
       expect(welcomeRect.top, lessThan(100.0));
       expect(welcomeRect.height, greaterThan(15.0));
+    });
+  });
+
+  group('MonetizationService Tests', () {
+    test('Allows interstitial ad after quiz completion for non-premium users', () async {
+      final monetization = MonetizationService();
+      await monetization.init();
+      await monetization.setPremium(false);
+
+      expect(monetization.isPremium, false);
+      expect(monetization.shouldShowQuizInterstitial(), true);
+    });
+
+    test('Bypasses ads completely for premium users', () async {
+      final monetization = MonetizationService();
+      await monetization.init();
+      await monetization.setPremium(true);
+
+      expect(monetization.isPremium, true);
+      expect(monetization.shouldShowQuizInterstitial(), false);
+    });
+  });
+
+  group('Developer Easter Egg Dialog Tests', () {
+    testWidgets('Opens Easter Egg dialog and renders developer and app information',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () => showDeveloperEasterEggDialog(context),
+                child: const Text('Open Easter Egg'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Open Easter Egg'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Secret Easter Egg Unlocked!'), findsOneWidget);
+      expect(find.textContaining('Version ${AppConfig.appVersion}'), findsOneWidget);
+      expect(find.text('UK Solutions'), findsWidgets);
+      expect(find.text('Uday Kumar Reddy'), findsOneWidget);
+      expect(find.text(AppConfig.developerContact), findsOneWidget);
+    });
+  });
+
+  group('RatingService & Rating Dialog Tests', () {
+    test('Correctly determines UX-friendly milestone prompting conditions', () async {
+      final ratingService = RatingService();
+      await ratingService.init();
+
+      // Should not prompt if percentage < 80
+      expect(ratingService.shouldPromptAfterQuiz(percentage: 75), false);
+
+      // Record 1st quiz - never prompt on the very first quiz (let user explore)
+      await ratingService.recordQuizCompletion();
+      expect(ratingService.quizzesCompleted, 1);
+      expect(ratingService.shouldPromptAfterQuiz(percentage: 85), false);
+
+      // Record 2nd quiz with high score (>= 80%) - now it can prompt!
+      await ratingService.recordQuizCompletion();
+      expect(ratingService.quizzesCompleted, 2);
+      expect(ratingService.shouldPromptAfterQuiz(percentage: 85), true);
+
+      // Once marked as rated, it should never prompt again
+      await ratingService.markAsRated();
+      expect(ratingService.hasRated, true);
+      expect(ratingService.shouldPromptAfterQuiz(percentage: 100), false);
+    });
+
+    testWidgets('Renders in-app rating dialog with interactive stars and buttons',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () => showInAppRatingDialog(context),
+                child: const Text('Open Rating Dialog'),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Open Rating Dialog'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Enjoying Learn Kannada?'), findsOneWidget);
+      expect(find.text('Rate on Google Play'), findsOneWidget);
+      expect(find.text('Maybe Later'), findsOneWidget);
+
+      // Tap 3 stars (index 0 is header icon, index 1 is star 1, index 2 is star 2, index 3 is star 3)
+      final stars = find.byIcon(Icons.star_rounded);
+      expect(stars, findsWidgets);
+      await tester.tap(stars.at(3));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Good & helpful 🙂'), findsOneWidget);
+      expect(find.text('Submit Feedback'), findsOneWidget);
     });
   });
 }

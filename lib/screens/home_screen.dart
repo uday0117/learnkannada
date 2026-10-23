@@ -6,6 +6,7 @@ import '../core/theme/app_theme.dart';
 import '../core/theme/responsive.dart';
 import '../data/content_repository.dart';
 import '../widgets/ad_banner_widget.dart';
+import '../widgets/developer_easter_egg_dialog.dart';
 import '../widgets/theme_selector_sheet.dart';
 import 'search_screen.dart';
 
@@ -164,17 +165,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    // App Icon Emblem
-                    Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppColors.borderSide(context)),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Image.asset(AppConfig.logoAsset, fit: BoxFit.cover),
-                    ),
+                    // App Icon Emblem (with Easter Egg trigger)
+                    const _EasterEggLogoWidget(),
                   ],
                 ),
                 const SizedBox(height: 20),
@@ -535,6 +527,65 @@ class _FeatureCard extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _EasterEggLogoWidget extends StatefulWidget {
+  const _EasterEggLogoWidget();
+
+  @override
+  State<_EasterEggLogoWidget> createState() => _EasterEggLogoWidgetState();
+}
+
+class _EasterEggLogoWidgetState extends State<_EasterEggLogoWidget> {
+  int _taps = 0;
+  DateTime? _lastTap;
+
+  void _handleTap() {
+    final now = DateTime.now();
+    if (_lastTap == null || now.difference(_lastTap!).inMilliseconds > 1800) {
+      _taps = 1;
+    } else {
+      _taps++;
+    }
+    _lastTap = now;
+
+    if (_taps >= 5) {
+      _taps = 0;
+      showDeveloperEasterEggDialog(context);
+    } else if (_taps >= 3) {
+      final remaining = 5 - _taps;
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('🥚 $remaining more tap${remaining > 1 ? "s" : ""} to unlock developer easter egg!'),
+          duration: const Duration(milliseconds: 900),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: 'Learn Kannada (Tap 5 times for Easter Egg)',
+      child: InkWell(
+        onTap: _handleTap,
+        onLongPress: () => showDeveloperEasterEggDialog(context),
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.borderSide(context)),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Image.asset(AppConfig.logoAsset, fit: BoxFit.cover),
         ),
       ),
     );

@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 import '../core/services/ad_service.dart';
+import '../core/services/rating_service.dart';
 import '../core/services/tts_service.dart';
 import '../core/theme/app_theme.dart';
 import '../core/theme/responsive.dart';
+import '../widgets/in_app_rating_dialog.dart';
 import '../data/content_repository.dart';
 import '../models/quiz_question.dart';
+
+class QuizUserAnswer {
+  final QuizQuestion question;
+  final int selectedIndex;
+  final bool isCorrect;
+
+  const QuizUserAnswer({
+    required this.question,
+    required this.selectedIndex,
+    required this.isCorrect,
+  });
+}
 
 class QuizScreen extends StatefulWidget {
   final VoidCallback? onBackToHome;
@@ -18,11 +32,14 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   final ContentRepository _repository = ContentRepository();
   List<QuizQuestion> _questions = [];
+  final List<QuizUserAnswer> _userAnswers = [];
   int _currentIndex = 0;
   int? _selectedIndex;
   bool _answered = false;
   int _score = 0;
   bool _isQuizFinished = false;
+  int _summaryFilter = 0; // 0 = All, 1 = Incorrect, 2 = Correct
+  bool _showRatingBanner = true;
 
   @override
   void initState() {
@@ -36,6 +53,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
     setState(() {
       _questions = _repository.generateQuiz(questionCount: 10);
+      _userAnswers.clear();
+      _summaryFilter = 0;
       _currentIndex = 0;
       _selectedIndex = null;
       _answered = false;
@@ -47,12 +66,22 @@ class _QuizScreenState extends State<QuizScreen> {
   void _selectOption(int index) {
     if (_answered) return;
 
+    final currentQuestion = _questions[_currentIndex];
+    final isCorrect = index == currentQuestion.correctIndex;
+
     setState(() {
       _selectedIndex = index;
       _answered = true;
-      if (index == _questions[_currentIndex].correctIndex) {
+      if (isCorrect) {
         _score++;
       }
+      _userAnswers.add(
+        QuizUserAnswer(
+          question: currentQuestion,
+          selectedIndex: index,
+          isCorrect: isCorrect,
+        ),
+      );
     });
   }
 
@@ -68,9 +97,20 @@ class _QuizScreenState extends State<QuizScreen> {
       AdService().showQuizInterstitial(
         onDismissed: () {
           if (mounted) {
+            RatingService().recordQuizCompletion();
             setState(() {
               _isQuizFinished = true;
             });
+            final percentage = _questions.isNotEmpty
+                ? ((_score / _questions.length) * 100).round()
+                : 0;
+            if (RatingService().shouldPromptAfterQuiz(percentage: percentage)) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (mounted) {
+                  showInAppRatingDialog(context, isMilestone: true);
+                }
+              });
+            }
           }
         },
       );
@@ -445,161 +485,574 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Widget _buildScoreSummary() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final percentage = ((_score / _questions.length) * 100).round();
+    final totalCount = _questions.length;
+    final percentage = totalCount > 0 ? ((_score / totalCount) * 100).round() : 0;
     final isPass = percentage >= 60;
+    final incorrectCount = totalCount - _score;
+
+    final filteredAnswers = _userAnswers.where((answer) {
+      if (_summaryFilter == 1) return !answer.isCorrect;
+      if (_summaryFilter == 2) return answer.isCorrect;
+      return true;
+    }).toList();
 
     return Scaffold(
       backgroundColor: AppColors.background(context),
       appBar: AppBar(
-        title: const Text('Quiz Results'),
+        title: const Text('Quiz Summary'),
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Center(
             child: ResponsiveContentWrapper(
-              maxWidth: 500,
-              padding: const EdgeInsets.all(24),
+              maxWidth: 640,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Trophy / Medal Badge
+                  // Celebration & Score Card
                   Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: isPass
-                          ? (isDark ? const Color(0xFF382C10) : AppColors.goldLight)
-                          : (isDark ? AppColors.darkIncorrectBg : AppColors.incorrectBg),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      isPass ? Icons.emoji_events_rounded : Icons.refresh_rounded,
-                      size: 52,
-                      color: isPass
-                          ? (isDark ? AppColors.goldVibrant : AppColors.goldDark)
-                          : (isDark ? const Color(0xFFF87171) : AppColors.incorrectRed),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-
-                  Text(
-                    isPass ? 'Outstanding Effort!' : 'Keep Practicing!',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w800,
-                      color: isDark ? AppColors.accentGreen : AppColors.primary,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    isPass
-                        ? 'You did great on this Kannada quiz.'
-                        : 'Review the words and sentences to boost your score.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: AppColors.subtext(context),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // Score Box
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                    padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
                       color: AppColors.surface(context),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(24),
                       border: Border.all(color: AppColors.borderSide(context)),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.04),
-                          blurRadius: 10,
+                          color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.04),
+                          blurRadius: 12,
                           offset: const Offset(0, 4),
                         ),
                       ],
                     ),
                     child: Column(
                       children: [
+                        // Trophy / Medal Badge
+                        Container(
+                          width: 84,
+                          height: 84,
+                          decoration: BoxDecoration(
+                            color: isPass
+                                ? (isDark ? const Color(0xFF382C10) : AppColors.goldLight)
+                                : (isDark ? AppColors.darkIncorrectBg : AppColors.incorrectBg),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            isPass ? Icons.emoji_events_rounded : Icons.psychology_rounded,
+                            size: 46,
+                            color: isPass
+                                ? (isDark ? AppColors.goldVibrant : AppColors.goldDark)
+                                : (isDark ? const Color(0xFFF87171) : AppColors.incorrectRed),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
                         Text(
-                          'YOUR SCORE',
+                          isPass ? 'Outstanding Effort!' : 'Keep Practicing!',
                           style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 1.2,
-                            color: AppColors.subtext(context),
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                            color: isDark ? AppColors.accentGreen : AppColors.primary,
                           ),
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          '$_score / ${_questions.length}',
-                          style: TextStyle(
-                            fontSize: 38,
-                            fontWeight: FontWeight.w800,
-                            color: isDark
-                                ? AppColors.accentGreen
-                                : AppColors.primary,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '$percentage% accuracy',
+                          isPass
+                              ? 'You have a good grasp of these Kannada words!'
+                              : 'Review the question summary below to boost your recall.',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: isPass
-                                ? AppColors.correctGreen
-                                : AppColors.incorrectRed,
+                            color: AppColors.subtext(context),
                           ),
+                        ),
+                        const SizedBox(height: 20),
+
+                        // Stats Summary Row
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildMetricTile(
+                                label: 'SCORE',
+                                value: '$_score / $totalCount',
+                                color: isDark ? AppColors.accentGreen : AppColors.primary,
+                                context: context,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: _buildMetricTile(
+                                label: 'ACCURACY',
+                                value: '$percentage%',
+                                color: isPass ? AppColors.correctGreen : AppColors.incorrectRed,
+                                context: context,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: _buildMetricTile(
+                                label: 'MISTAKES',
+                                value: '$incorrectCount',
+                                color: incorrectCount == 0 ? AppColors.correctGreen : AppColors.incorrectRed,
+                                context: context,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 24),
 
-                  // Restart Quiz Button
-                  FilledButton.icon(
-                    onPressed: _startQuiz,
-                    icon: const Icon(Icons.restart_alt_rounded),
-                    label: const Text('Try Another Quiz'),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: isDark
-                          ? AppColors.accentGreen
-                          : AppColors.primary,
-                      foregroundColor: isDark ? Colors.black : Colors.white,
-                      minimumSize: const Size.fromHeight(52),
-                      shape: RoundedRectangleBorder(
+                  // Action Buttons (Try Another Quiz / Back to Home)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FilledButton.icon(
+                          onPressed: _startQuiz,
+                          icon: const Icon(Icons.restart_alt_rounded, size: 20),
+                          label: const Text('Try Another Quiz'),
+                          style: FilledButton.styleFrom(
+                            backgroundColor: isDark ? AppColors.accentGreen : AppColors.primary,
+                            foregroundColor: isDark ? Colors.black : Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (widget.onBackToHome != null) ...[
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: widget.onBackToHome,
+                            icon: const Icon(Icons.home_rounded, size: 20),
+                            label: const Text('Home'),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: AppColors.text(context),
+                              side: BorderSide(color: AppColors.borderSide(context)),
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  // In-App Rating Card (Polite, dismissible, only if not already rated)
+                  if (!RatingService().hasRated && _showRatingBanner) ...[
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: isDark ? const Color(0xFF2B220B) : const Color(0xFFFEF3C7),
                         borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: isDark ? const Color(0xFF5A4412) : const Color(0xFFFDE68A),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.star_rounded, color: AppColors.gold, size: 26),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Enjoying Learn Kannada?',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.text(context),
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Support us with a 5 ★ rating on Google Play',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: AppColors.subtext(context),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () => showInAppRatingDialog(context),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              backgroundColor: isDark ? AppColors.goldDark : AppColors.gold,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: const Text(
+                              'Rate 5 ★',
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          IconButton(
+                            icon: const Icon(Icons.close_rounded, size: 18),
+                            color: AppColors.subtext(context),
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                            tooltip: 'Dismiss',
+                            onPressed: () {
+                              setState(() {
+                                _showRatingBanner = false;
+                              });
+                              RatingService().recordDismissed();
+                            },
+                          ),
+                        ],
                       ),
                     ),
+                  ],
+                  const SizedBox(height: 28),
+
+                  // Summary Section Title & Filter Chips
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Questions Summary',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.text(context),
+                        ),
+                      ),
+                      Text(
+                        '${_userAnswers.length} Questions',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.subtext(context),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 12),
 
-                  // Return Home
-                  if (widget.onBackToHome != null)
-                    OutlinedButton(
-                      onPressed: widget.onBackToHome,
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: AppColors.text(context),
-                        side: BorderSide(color: AppColors.borderSide(context)),
-                        minimumSize: const Size.fromHeight(52),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                  // Filter Chips (All / Mistakes / Correct)
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      ChoiceChip(
+                        label: Text('All (${_userAnswers.length})'),
+                        selected: _summaryFilter == 0,
+                        onSelected: (_) => setState(() => _summaryFilter = 0),
+                      ),
+                      ChoiceChip(
+                        label: Text('Mistakes ($incorrectCount)'),
+                        selected: _summaryFilter == 1,
+                        selectedColor: isDark ? AppColors.darkIncorrectBg : AppColors.incorrectBg,
+                        onSelected: (_) => setState(() => _summaryFilter = 1),
+                      ),
+                      ChoiceChip(
+                        label: Text('Correct ($_score)'),
+                        selected: _summaryFilter == 2,
+                        selectedColor: isDark ? AppColors.darkCorrectBg : AppColors.correctBg,
+                        onSelected: (_) => setState(() => _summaryFilter = 2),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Questions Breakdown List
+                  if (filteredAnswers.isEmpty)
+                    Container(
+                      padding: const EdgeInsets.all(28),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.surface(context),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: AppColors.borderSide(context)),
+                      ),
+                      child: Text(
+                        _summaryFilter == 1
+                            ? '🎉 Perfect! You had zero mistakes on this quiz!'
+                            : 'No questions in this filter.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.subtext(context),
                         ),
                       ),
-                      child: const Text(
-                        'Back to Home',
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                    ),
+                    )
+                  else
+                    ...filteredAnswers.map((answer) {
+                      final q = answer.question;
+                      final isCorrect = answer.isCorrect;
+                      final userOption = q.options[answer.selectedIndex];
+                      final correctOption = q.options[q.correctIndex];
+                      final questionIndex = _questions.indexOf(q) + 1;
+
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 14),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: AppColors.surface(context),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: isCorrect
+                                ? (isDark ? AppColors.darkBorder : AppColors.border)
+                                : (isDark ? AppColors.incorrectRed.withValues(alpha: 0.4) : AppColors.incorrectRed.withValues(alpha: 0.3)),
+                            width: isCorrect ? 1 : 1.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: isDark ? 0.15 : 0.02),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Top Row: Question number, Result badge, Audio Button
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: isDark ? AppColors.darkSurface : AppColors.surfaceSoft,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(color: AppColors.borderSide(context)),
+                                  ),
+                                  child: Text(
+                                    'Q$questionIndex',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.subtext(context),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: isCorrect
+                                        ? (isDark ? AppColors.darkCorrectBg : AppColors.correctBg)
+                                        : (isDark ? AppColors.darkIncorrectBg : AppColors.incorrectBg),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        isCorrect ? Icons.check_circle_rounded : Icons.cancel_rounded,
+                                        size: 14,
+                                        color: isCorrect ? AppColors.correctGreen : AppColors.incorrectRed,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        isCorrect ? 'Correct' : 'Incorrect',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700,
+                                          color: isCorrect ? AppColors.correctGreen : AppColors.incorrectRed,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Spacer(),
+                                // Pronunciation / Unmute Button for question
+                                ValueListenableBuilder<String?>(
+                                  valueListenable: TtsService().currentlyPlayingId,
+                                  builder: (context, playingId, _) {
+                                    final isPlaying = playingId == 'summary_${q.id}';
+                                    return IconButton.filledTonal(
+                                      onPressed: () {
+                                        TtsService().toggleSpeak(
+                                          id: 'summary_${q.id}',
+                                          text: q.kannada,
+                                        );
+                                      },
+                                      tooltip: isPlaying ? 'Mute / Stop audio' : 'Unmute / Listen pronunciation',
+                                      style: IconButton.styleFrom(
+                                        backgroundColor: isPlaying
+                                            ? (isDark ? AppColors.accentGreen.withValues(alpha: 0.3) : AppColors.primary.withValues(alpha: 0.2))
+                                            : (isDark ? AppColors.darkGreenTint : AppColors.greenTint),
+                                        foregroundColor: isPlaying
+                                            ? (isDark ? AppColors.goldVibrant : AppColors.primary)
+                                            : (isDark ? AppColors.accentGreen : AppColors.primary),
+                                        padding: const EdgeInsets.all(8),
+                                        minimumSize: const Size(36, 36),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                      ),
+                                      icon: Icon(
+                                        isPlaying ? Icons.volume_off_rounded : Icons.volume_up_rounded,
+                                        size: 18,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+
+                            // Kannada Text & Transliteration
+                            Text(
+                              q.kannada,
+                              style: TextStyle(
+                                fontFamily: 'NotoSansKannada',
+                                fontSize: 22,
+                                fontWeight: FontWeight.w800,
+                                color: isDark ? AppColors.accentGreen : AppColors.primary,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              '(${q.transliteration})',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.subtext(context),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+
+                            // Answer Review Details
+                            if (isCorrect) ...[
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: isDark ? AppColors.darkCorrectBg : AppColors.correctBg,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: AppColors.correctGreen.withValues(alpha: 0.3)),
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.check_rounded, size: 16, color: AppColors.correctGreen),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        'Your Answer: $userOption',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                          color: isDark ? const Color(0xFF4ADE80) : AppColors.correctGreen,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ] else ...[
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: isDark ? AppColors.darkIncorrectBg : AppColors.incorrectBg,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: AppColors.incorrectRed.withValues(alpha: 0.3)),
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.close_rounded, size: 16, color: AppColors.incorrectRed),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        'Your Answer: $userOption',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                          color: isDark ? const Color(0xFFF87171) : AppColors.incorrectRed,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: isDark ? AppColors.darkCorrectBg : AppColors.correctBg,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: AppColors.correctGreen.withValues(alpha: 0.3)),
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.check_rounded, size: 16, color: AppColors.correctGreen),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        'Correct Answer: $correctOption',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w700,
+                                          color: isDark ? const Color(0xFF4ADE80) : AppColors.correctGreen,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      );
+                    }),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildMetricTile({
+    required String label,
+    required String value,
+    required Color color,
+    required BuildContext context,
+  }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.darkSurface : AppColors.surfaceSoft,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.borderSide(context)),
+      ),
+      child: Column(
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.8,
+              color: AppColors.subtext(context),
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: color,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -10,4 +10,8 @@ class AppConfig {
   static const String ttsLocale = 'kn-IN';
   static const String logoAsset = 'assets/images/logo.png';
   static const String kannadaFontFamily = 'NotoSansKannada';
+  static const String appVersion = '1.0.1';
+  static const int buildNumber = 2;
+  static const String developerName = 'UK Solutions';
+  static const String developerContact = 'apps.uksolutions@gmail.com';
 }

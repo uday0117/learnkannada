@@ -3446,5 +3446,845 @@
     "english": "Hill / Mountain",
     "category": "Weather & Nature",
     "type": "word"
+  },
+  {
+    "id": "w_432",
+    "kannada": "ಮೊಬೈಲ್",
+    "transliteration": "Mobail",
+    "english": "Mobile Phone",
+    "category": "Work & Office",
+    "type": "word"
+  },
+  {
+    "id": "w_433",
+    "kannada": "ಅಂತರಜಾಲ",
+    "transliteration": "Antarajāla",
+    "english": "Internet",
+    "category": "Work & Office",
+    "type": "word"
+  },
+  {
+    "id": "w_434",
+    "kannada": "ಗೂಢಪದ",
+    "transliteration": "Gūḍhapada",
+    "english": "Password",
+    "category": "Work & Office",
+    "type": "word"
+  },
+  {
+    "id": "w_435",
+    "kannada": "ಚಾರ್ಜರ್",
+    "transliteration": "Chārjar",
+    "english": "Charger",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_436",
+    "kannada": "ಲ್ಯಾಪ್‌ಟಾಪ್",
+    "transliteration": "Lyāp‌ṭāp",
+    "english": "Laptop",
+    "category": "Work & Office",
+    "type": "word"
+  },
+  {
+    "id": "w_437",
+    "kannada": "ವಿದ್ಯುತ್",
+    "transliteration": "Vidyut",
+    "english": "Electricity / Power",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_438",
+    "kannada": "ಮಾಹಿತಿ",
+    "transliteration": "Māhiti",
+    "english": "Information",
+    "category": "Work & Office",
+    "type": "word"
+  },
+  {
+    "id": "w_439",
+    "kannada": "ಕಡತ",
+    "transliteration": "Kaḍata",
+    "english": "File / Document",
+    "category": "Work & Office",
+    "type": "word"
+  },
+  {
+    "id": "w_440",
+    "kannada": "ಚಿತ್ರ",
+    "transliteration": "Chitra",
+    "english": "Picture / Photo",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_441",
+    "kannada": "ಧ್ವನಿ",
+    "transliteration": "Dhvani",
+    "english": "Sound / Voice",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_442",
+    "kannada": "ಕಣ್ಣು",
+    "transliteration": "Kaṇṇu",
+    "english": "Eye",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_443",
+    "kannada": "ಕಿವಿ",
+    "transliteration": "Kivi",
+    "english": "Ear",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_444",
+    "kannada": "ಮೂಗು",
+    "transliteration": "Mūgu",
+    "english": "Nose",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_445",
+    "kannada": "ಬಾಯಿ",
+    "transliteration": "Bāyi",
+    "english": "Mouth",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_446",
+    "kannada": "ಹಲ್ಲು",
+    "transliteration": "Hallu",
+    "english": "Tooth / Teeth",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_447",
+    "kannada": "ತಲೆ",
+    "transliteration": "Tale",
+    "english": "Head",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_448",
+    "kannada": "ಕೈ",
+    "transliteration": "Kai",
+    "english": "Hand / Arm",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_449",
+    "kannada": "ಹೊಟ್ಟೆ",
+    "transliteration": "Hoṭṭe",
+    "english": "Stomach / Belly",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_450",
+    "kannada": "ಹೃದಯ",
+    "transliteration": "Hṛdaya",
+    "english": "Heart",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_451",
+    "kannada": "ಗಂಟಲು",
+    "transliteration": "Gaṇṭalu",
+    "english": "Throat",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_452",
+    "kannada": "ಬೆನ್ನು",
+    "transliteration": "Bennu",
+    "english": "Back (Spine)",
+    "category": "Health & Emergency",
+    "type": "word"
+  },
+  {
+    "id": "w_453",
+    "kannada": "ಅಕ್ಕಿ",
+    "transliteration": "Akki",
+    "english": "Raw Rice (Grains)",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_454",
+    "kannada": "ಎಣ್ಣೆ",
+    "transliteration": "Eṇṇe",
+    "english": "Cooking Oil",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_455",
+    "kannada": "ಬೆಳ್ಳುಳ್ಳಿ",
+    "transliteration": "Beḷḷuḷḷi",
+    "english": "Garlic",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_456",
+    "kannada": "ಶುಂಠಿ",
+    "transliteration": "Śuṇṭhi",
+    "english": "Ginger",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_457",
+    "kannada": "ಮೆಣಸಿನಕಾಯಿ",
+    "transliteration": "Meṇasinakāyi",
+    "english": "Green Chilli",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_458",
+    "kannada": "ಬೇಳೆ",
+    "transliteration": "Bēḷe",
+    "english": "Lentils / Dal",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_459",
+    "kannada": "ಅರಿಶಿನ",
+    "transliteration": "Ariśina",
+    "english": "Turmeric",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_460",
+    "kannada": "ಜೀರಿಗೆ",
+    "transliteration": "Jīrige",
+    "english": "Cumin seeds",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_461",
+    "kannada": "ಸಾಸಿವೆ",
+    "transliteration": "Sāsive",
+    "english": "Mustard seeds",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_462",
+    "kannada": "ಕೊತ್ತಂಬರಿ",
+    "transliteration": "Kottambari",
+    "english": "Coriander leaves",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_463",
+    "kannada": "ಕರಿಬೇವು",
+    "transliteration": "Karibēvu",
+    "english": "Curry leaves",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_464",
+    "kannada": "ಪುದೀನಾ",
+    "transliteration": "Pudīnā",
+    "english": "Mint leaves",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_465",
+    "kannada": "ಗೋಧಿ",
+    "transliteration": "Gōdhi",
+    "english": "Wheat",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_466",
+    "kannada": "ರಾಗಿ",
+    "transliteration": "Rāgi",
+    "english": "Finger Millet (Ragi)",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_467",
+    "kannada": "ಅವಲಕ್ಕಿ",
+    "transliteration": "Avalakki",
+    "english": "Flattened rice / Poha",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_468",
+    "kannada": "ರವೆ",
+    "transliteration": "Rave",
+    "english": "Semolina / Sooji",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_469",
+    "kannada": "ಕಿತ್ತಳೆ",
+    "transliteration": "Kittaḷe",
+    "english": "Orange fruit",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_470",
+    "kannada": "ನಿಂಬೆಹಣ್ಣು",
+    "transliteration": "Nimbehaṇṇu",
+    "english": "Lemon",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_471",
+    "kannada": "ಬೆಲ್ಲ",
+    "transliteration": "Bella",
+    "english": "Jaggery",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_472",
+    "kannada": "ಜೇನುತುಪ್ಪ",
+    "transliteration": "Jēnutuppa",
+    "english": "Honey",
+    "category": "Food & Dining",
+    "type": "word"
+  },
+  {
+    "id": "w_473",
+    "kannada": "ಬಣ್ಣ",
+    "transliteration": "Baṇṇa",
+    "english": "Colour",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_474",
+    "kannada": "ಕೆಂಪು",
+    "transliteration": "Kempu",
+    "english": "Red",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_475",
+    "kannada": "ನೀಲಿ",
+    "transliteration": "Nīli",
+    "english": "Blue",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_476",
+    "kannada": "ಹಳದಿ",
+    "transliteration": "Haḷadi",
+    "english": "Yellow",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_477",
+    "kannada": "ಹಸಿರು",
+    "transliteration": "Hasiru",
+    "english": "Green",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_478",
+    "kannada": "ಬಿಳಿ",
+    "transliteration": "Biḷi",
+    "english": "White",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_479",
+    "kannada": "ಕಪ್ಪು",
+    "transliteration": "Kappu",
+    "english": "Black",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_480",
+    "kannada": "ಗುಲಾಬಿ",
+    "transliteration": "Gulābi",
+    "english": "Pink",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_481",
+    "kannada": "ಕಿತ್ತಳೆ ಬಣ್ಣ",
+    "transliteration": "Kittaḷe baṇṇa",
+    "english": "Orange colour",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_482",
+    "kannada": "ಅಂಗಿ",
+    "transliteration": "Aṅgi",
+    "english": "Shirt",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_483",
+    "kannada": "ಸೀರೆ",
+    "transliteration": "Sīre",
+    "english": "Saree",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_484",
+    "kannada": "ಪಾದರಕ್ಷೆ",
+    "transliteration": "Pādarakṣe",
+    "english": "Footwear / Slippers",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_485",
+    "kannada": "ಕೊಡೆ",
+    "transliteration": "Koḍe",
+    "english": "Umbrella",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_486",
+    "kannada": "ಗಡಿಯಾರ",
+    "transliteration": "Gaḍiyāra",
+    "english": "Clock / Watch",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_487",
+    "kannada": "ಮೆಟ್ಟಿಲು",
+    "transliteration": "Meṭṭilu",
+    "english": "Stairs / Steps",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_488",
+    "kannada": "ದಿಂಬು",
+    "transliteration": "Dimbu",
+    "english": "Pillow",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_489",
+    "kannada": "ಹೊದಿಕೆ",
+    "transliteration": "Hodike",
+    "english": "Blanket / Bedsheet",
+    "category": "House & Objects",
+    "type": "word"
+  },
+  {
+    "id": "w_490",
+    "kannada": "ನಾಯಿ",
+    "transliteration": "Nāyi",
+    "english": "Dog",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_491",
+    "kannada": "ಬೆಕ್ಕು",
+    "transliteration": "Bekku",
+    "english": "Cat",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_492",
+    "kannada": "ಹಸು",
+    "transliteration": "Hasu",
+    "english": "Cow",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_493",
+    "kannada": "ಆನೆ",
+    "transliteration": "Āne",
+    "english": "Elephant",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_494",
+    "kannada": "ಪಕ್ಷಿ",
+    "transliteration": "Pakṣi",
+    "english": "Bird",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_495",
+    "kannada": "ಮೀನು",
+    "transliteration": "Mīnu",
+    "english": "Fish",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_496",
+    "kannada": "ಕುದುರೆ",
+    "transliteration": "Kudure",
+    "english": "Horse",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_497",
+    "kannada": "ಹುಲಿ",
+    "transliteration": "Huli",
+    "english": "Tiger",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_498",
+    "kannada": "ಸಿಂಹ",
+    "transliteration": "Siṁha",
+    "english": "Lion",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_499",
+    "kannada": "ಕೋತಿ",
+    "transliteration": "Kōti",
+    "english": "Monkey",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_500",
+    "kannada": "ಹಾವು",
+    "transliteration": "Hāvu",
+    "english": "Snake",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_501",
+    "kannada": "ಕಾಡು",
+    "transliteration": "Kāḍu",
+    "english": "Forest / Jungle",
+    "category": "Weather & Nature",
+    "type": "word"
+  },
+  {
+    "id": "w_502",
+    "kannada": "ಸಂತೋಷ",
+    "transliteration": "Santōṣa",
+    "english": "Happiness / Joy",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_503",
+    "kannada": "ದುಃಖ",
+    "transliteration": "Duḥkha",
+    "english": "Sadness / Sorrow",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_504",
+    "kannada": "ಕೋಪ",
+    "transliteration": "Kōpa",
+    "english": "Anger",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_505",
+    "kannada": "ಭಯ",
+    "transliteration": "Bhaya",
+    "english": "Fear",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_506",
+    "kannada": "ಪ್ರೀತಿ",
+    "transliteration": "Prīti",
+    "english": "Love / Affection",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_507",
+    "kannada": "ಶಾಂತಿ",
+    "transliteration": "Śānti",
+    "english": "Peace / Calm",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_508",
+    "kannada": "ಆಶ್ಚರ್ಯ",
+    "transliteration": "Āścarya",
+    "english": "Wonder / Surprise",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_509",
+    "kannada": "ಆಯಾಸ",
+    "transliteration": "Āyāsa",
+    "english": "Tiredness / Exhaustion",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_510",
+    "kannada": "ಬಾಯಾರಿಕೆ",
+    "transliteration": "Bāyārike",
+    "english": "Thirst",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_511",
+    "kannada": "ಧೈರ್ಯ",
+    "transliteration": "Dhairya",
+    "english": "Courage / Bravery",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_512",
+    "kannada": "ನೆಮ್ಮದಿ",
+    "transliteration": "Nemmadi",
+    "english": "Peace of mind",
+    "category": "Adjectives",
+    "type": "word"
+  },
+  {
+    "id": "w_513",
+    "kannada": "ಓದು",
+    "transliteration": "Ōdu",
+    "english": "Read",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_514",
+    "kannada": "ಬರೆ",
+    "transliteration": "Bare",
+    "english": "Write",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_515",
+    "kannada": "ಕೇಳು",
+    "transliteration": "Kēḷu",
+    "english": "Listen / Ask",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_516",
+    "kannada": "ನೋಡು",
+    "transliteration": "Nōḍu",
+    "english": "Look / See",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_517",
+    "kannada": "ಮಲಗು",
+    "transliteration": "Malagu",
+    "english": "Sleep / Lie down",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_518",
+    "kannada": "ಎದ್ದೇಳು",
+    "transliteration": "Eddēḷu",
+    "english": "Wake up / Get up",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_519",
+    "kannada": "ಆಡು",
+    "transliteration": "Āḍu",
+    "english": "Play",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_520",
+    "kannada": "ಹಾಡು",
+    "transliteration": "Hāḍu",
+    "english": "Sing",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_521",
+    "kannada": "ಕಲಿ",
+    "transliteration": "Kali",
+    "english": "Learn",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_522",
+    "kannada": "ಕಲಿಸು",
+    "transliteration": "Kalisu",
+    "english": "Teach",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_523",
+    "kannada": "ಮಾತನಾಡು",
+    "transliteration": "Mātanāḍu",
+    "english": "Talk / Speak",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_524",
+    "kannada": "ಕಾಯಿ",
+    "transliteration": "Kāyi",
+    "english": "Wait",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_525",
+    "kannada": "ತೊಳೆ",
+    "transliteration": "Toḷe",
+    "english": "Wash / Clean",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_526",
+    "kannada": "ಕೂಡು",
+    "transliteration": "Kūḍu",
+    "english": "Sit / Gather",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_527",
+    "kannada": "ಓಡು",
+    "transliteration": "Ōḍu",
+    "english": "Run",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_528",
+    "kannada": "ನಡೆ",
+    "transliteration": "Naḍe",
+    "english": "Walk",
+    "category": "Common Verbs",
+    "type": "word"
+  },
+  {
+    "id": "w_529",
+    "kannada": "ಶಿಕ್ಷಕ",
+    "transliteration": "Śikṣaka",
+    "english": "Teacher (Male)",
+    "category": "People & Pronouns",
+    "type": "word"
+  },
+  {
+    "id": "w_530",
+    "kannada": "ಶಿಕ್ಷಕಿ",
+    "transliteration": "Śikṣaki",
+    "english": "Teacher (Female)",
+    "category": "People & Pronouns",
+    "type": "word"
+  },
+  {
+    "id": "w_531",
+    "kannada": "ವಿದ್ಯಾರ್ಥಿ",
+    "transliteration": "Vidyārthi",
+    "english": "Student (Male)",
+    "category": "People & Pronouns",
+    "type": "word"
+  },
+  {
+    "id": "w_532",
+    "kannada": "ವಿದ್ಯಾರ್ಥಿನಿ",
+    "transliteration": "Vidyārthini",
+    "english": "Student (Female)",
+    "category": "People & Pronouns",
+    "type": "word"
+  },
+  {
+    "id": "w_533",
+    "kannada": "ರೈತ",
+    "transliteration": "Raita",
+    "english": "Farmer",
+    "category": "People & Pronouns",
+    "type": "word"
+  },
+  {
+    "id": "w_534",
+    "kannada": "ಪೋಲೀಸ್",
+    "transliteration": "Pōlīs",
+    "english": "Police officer",
+    "category": "People & Pronouns",
+    "type": "word"
+  },
+  {
+    "id": "w_535",
+    "kannada": "ವ್ಯಾಪಾರಿ",
+    "transliteration": "Vyāpāri",
+    "english": "Merchant / Shopkeeper",
+    "category": "People & Pronouns",
+    "type": "word"
+  },
+  {
+    "id": "w_536",
+    "kannada": "ನೆರೆಹೊರೆಯವರು",
+    "transliteration": "Nerehoreyavaru",
+    "english": "Neighbors",
+    "category": "People & Pronouns",
+    "type": "word"
   }
 ]

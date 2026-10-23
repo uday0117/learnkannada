@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import '../core/constants/app_config.dart';
 import '../core/services/theme_service.dart';
 import '../core/theme/app_theme.dart';
 import '../core/theme/responsive.dart';
+import 'developer_easter_egg_dialog.dart';
 
 /// Bottom sheet dialog to select Light, Dark, or System theme mode
 void showThemeSelectorSheet(BuildContext context) {
@@ -93,6 +95,27 @@ void showThemeSelectorSheet(BuildContext context) {
                       themeService.setThemeMode(ThemeMode.dark);
                       Navigator.pop(ctx);
                     },
+                  ),
+                  const SizedBox(height: 16),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(ctx);
+                        showDeveloperEasterEggDialog(context);
+                      },
+                      borderRadius: BorderRadius.circular(8),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        child: Text(
+                          '${AppConfig.appTitle} v${AppConfig.appVersion}+${AppConfig.buildNumber} • ${AppConfig.developerName}',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.subtext(context),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8),
                 ],
